@@ -1,4 +1,11 @@
 <script setup lang="ts">
+import { useRoute } from "vue-router"
+
+const router = useRoute()
+
+function authEvent() {
+  router.push({name: 'auth'})
+}
 </script>
 
 <template>
@@ -14,7 +21,7 @@
       </el-form>
       <div class="btn-wrapper">
         <el-button class="login-btn">Войти</el-button>
-        <el-button class="auth-btn">Зарегистрироваться</el-button>
+        <el-button class="auth-btn" @click="authEvent">Зарегистрироваться</el-button>
       </div>
     </el-card>
   </div>
@@ -42,6 +49,7 @@
 }
 
 .login-btn {
+  width: 120px;
   background-color: #C9A378;
   color: white;
 }
