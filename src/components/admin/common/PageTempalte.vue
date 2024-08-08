@@ -35,7 +35,6 @@ const props = defineProps<{
           @click='btn.click'
       />
     </el-menu-item>
-<!--    <ControlButton/>-->
   </el-menu>
 </template>
 

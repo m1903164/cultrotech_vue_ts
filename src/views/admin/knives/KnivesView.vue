@@ -10,7 +10,7 @@ const pageTitle: string = 'Ножи'
 const controlButtonsLayout = reactive({
   addButton: {
     title: 'Добавить',
-    type: 'primary',
+    type: 'info',
     plain: true,
     isIconNeeded: true,
     iconName: 'fa-plus',
@@ -19,7 +19,7 @@ const controlButtonsLayout = reactive({
   },
   editButton: {
     title: 'Редактировать',
-    type: 'primary',
+    type: 'info',
     plain: true,
     isIconNeeded: true,
     iconName: 'fa-pen-to-square',
@@ -28,7 +28,7 @@ const controlButtonsLayout = reactive({
   },
   copyButton: {
     title: 'Дублировать',
-    type: 'primary',
+    type: 'info',
     plain: true,
     isIconNeeded: true,
     iconName: 'fa-copy',
