@@ -31,6 +31,8 @@ const props = defineProps<{
           :key="btn"
           :title="btn.title"
           :type='btn.type'
+
+          @click='btn.click'
       />
     </el-menu-item>
 <!--    <ControlButton/>-->
