@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import {defineProps} from "vue"
+import {defineProps, defineEmits} from "vue"
+
+const emits =  defineEmits(['click'])
 
 const props = defineProps({
   title: {
@@ -16,6 +18,7 @@ const props = defineProps({
 <template>
   <el-button
       :type="props.type"
+      @click="emits('click')"
   >
     {{props.title}}
   </el-button>

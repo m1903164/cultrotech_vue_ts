@@ -1,9 +1,15 @@
-import KnivesView from '../../../views/admin/knifes/KnivesView.vue'
+import KnivesView from '../../../views/admin/knives/KnivesView.vue'
+import AddKnivesView from '../../../views/admin/knives/AddKnivesView.vue'
 
 export default [
     {
-        path: `knives`,
+        path: 'knives',
         name: 'knivesView',
         component: KnivesView
+    },
+    {
+        path: 'knives/add',
+        name: 'addKnives',
+        component: AddKnivesView
     }
 ]

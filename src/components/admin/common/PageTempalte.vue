@@ -24,9 +24,7 @@ const props = defineProps<{
       class="el-menu-demo"
       mode="horizontal"
   >
-    <el-menu-item>
-      <h1>{{props.pageTitle}}</h1>
-      </el-menu-item>
+    <el-menu-item><h1>{{props.pageTitle}}</h1></el-menu-item>
     <el-menu-item>
       <ControlButton
           v-for="btn in controlButtonsLayout"
@@ -35,6 +33,7 @@ const props = defineProps<{
           :type='btn.type'
       />
     </el-menu-item>
+<!--    <ControlButton/>-->
   </el-menu>
 </template>
 
