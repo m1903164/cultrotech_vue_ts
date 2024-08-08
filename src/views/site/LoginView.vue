@@ -3,6 +3,10 @@ import { useRouter } from "vue-router"
 
 const router = useRouter()
 
+function singInEvent() {
+  router.push({name: 'HomeAdmin'})
+}
+
 function authEvent() {
   console.log('authEvent')
   router.push({name: 'auth'})
@@ -21,7 +25,7 @@ function authEvent() {
         </el-form-item>
       </el-form>
       <div class="btn-wrapper">
-        <el-button class="login-btn">Войти</el-button>
+        <el-button class="login-btn" @click="singInEvent">Войти</el-button>
         <el-button class="auth-btn" @click="authEvent">Зарегистрироваться</el-button>
       </div>
     </el-card>
