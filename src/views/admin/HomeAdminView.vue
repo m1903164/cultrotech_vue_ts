@@ -9,8 +9,5 @@ const router = useRouter()
 
 <template>
   <AdminHeader/>
-<!--  <div>Home</div>-->
-  <router-view v-slot="{ Component }">
-    <component :is="Component" />
-  </router-view>
+  <router-view></router-view>
 </template>
