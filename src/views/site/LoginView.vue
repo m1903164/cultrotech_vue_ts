@@ -32,7 +32,7 @@ function authEvent() {
   </div>
 </template>
 
-<style>
+<style scoped>
 .page-wrapper {
   height: 100%;
   width: 100%;

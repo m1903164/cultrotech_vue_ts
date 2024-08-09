@@ -20,21 +20,35 @@ const props = defineProps<{
 </script>
 
 <template>
-  <el-menu
-      class="el-menu-demo"
-      mode="horizontal"
-  >
-    <el-menu-item><h1>{{props.pageTitle}}</h1></el-menu-item>
-    <el-menu-item>
-      <ControlButton
-          v-for="btn in controlButtonsLayout"
-          :key="btn"
-          :title="btn.title"
-          :type='btn.type'
+  <div class="container">
+    <div class="page-header">
+      <h2>{{props.pageTitle}}</h2>
+      <div>
+        <ControlButton
+            v-for="btn in controlButtonsLayout"
+            :key="btn"
+            :title="btn.title"
+            :type='btn.type'
 
-          @click='btn.click'
-      />
-    </el-menu-item>
-  </el-menu>
+            @click='btn.click'
+        />
+      </div>
+    </div>
+  </div>
 </template>
+
+<style scoped lang="scss">
+.page-header {
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  border-bottom: solid #dcdfe6 1px;
+}
+
+.page-content {
+  padding: 20px;
+}
+</style>
 

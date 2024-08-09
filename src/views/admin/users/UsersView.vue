@@ -1,20 +1,23 @@
 <script setup lang="ts">
 import { reactive } from "vue"
+import { useRouter } from "vue-router"
 
 import PageTemplate from '../../../components/admin/common/PageTempalte.vue'
+
+const router = useRouter()
 
 const pageTitle: string = 'Пользователи'
 const controlButtonsLayout = reactive ({
   addButton: {
     title: 'Добавить',
-    type: 'primary',
+    type: 'info',
     plain: true,
     disabled: false,
-    // click: addButton
+    click: addButton
   },
   editButton: {
     title: 'Редактировать',
-    type: 'primary',
+    type: 'info',
     plain: true,
     disabled: false,
     // click: editButton
@@ -27,6 +30,11 @@ const controlButtonsLayout = reactive ({
     // click: deleteButton
   }
 })
+
+function addButton() {
+  router.push({name: 'addUsers'})
+}
+
 </script>
 
 
@@ -35,6 +43,6 @@ const controlButtonsLayout = reactive ({
       :pageTitle="pageTitle"
       :controlButtonsLayout="controlButtonsLayout"
   >
-    <div>Knives</div>
+    <div>Users</div>
   </PageTemplate>
 </template>
