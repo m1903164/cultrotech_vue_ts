@@ -12,6 +12,10 @@ const props = defineProps({
     type: String,
     default: ''
   },
+  plain: {
+    type: Boolean,
+    default: false
+  },
 })
 </script>
 
@@ -19,6 +23,7 @@ const props = defineProps({
   <el-button
       :type="props.type"
       @click="emits('click')"
+      :plain="props.plain"
   >
     {{props.title}}
   </el-button>

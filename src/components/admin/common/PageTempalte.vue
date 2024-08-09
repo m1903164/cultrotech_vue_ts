@@ -29,6 +29,7 @@ const props = defineProps<{
             :key="btn"
             :title="btn.title"
             :type='btn.type'
+            :plain="btn.plain"
 
             @click='btn.click'
         />
