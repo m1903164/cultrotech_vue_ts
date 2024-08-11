@@ -3,20 +3,11 @@ import {defineProps, defineEmits} from "vue"
 
 const emits =  defineEmits(['click'])
 
-const props = defineProps({
-  title: {
-    type: String,
-    required: true,
-  },
-  type: {
-    type: String,
-    default: ''
-  },
-  plain: {
-    type: Boolean,
-    default: false
-  },
-})
+const props = defineProps<{
+  title: string
+  type: string
+  plain?: boolean
+}>()
 </script>
 
 <template>

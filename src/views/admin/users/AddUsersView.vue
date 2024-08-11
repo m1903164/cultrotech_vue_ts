@@ -3,6 +3,7 @@ import {onMounted, ref, reactive} from "vue"
 import { useRoute, useRouter } from 'vue-router'
 
 import PageTemplateForAddEdit from '../../../components/admin/common/PageTemplateForAddEdit.vue'
+import controlButton from "@/types/controlButton"
 
 const route = useRoute()
 const router = useRouter()
@@ -10,9 +11,9 @@ const router = useRouter()
 const pageTitle = ref('')
 const loader = ref(false)
 
-const controlButtonsLayout = reactive({
-  addButton: {
-    title: 'Сохранить',
+const controlButtonsLayout = reactive(<controlButton[]> [
+  {
+    title: 'Добавить',
     type: 'success',
     plain: true,
     isIconNeeded: true,
@@ -20,7 +21,7 @@ const controlButtonsLayout = reactive({
     disabled: false,
     // click: addButton
   },
-  editButton: {
+  {
     title: 'Назад',
     type: 'info',
     plain: true,
@@ -28,8 +29,9 @@ const controlButtonsLayout = reactive({
     iconName: 'fa-pen-to-square',
     disabled: false,
     click: backButton
-  }
-})
+  },
+])
+
 
 function backButton() {
   router.go(-1)

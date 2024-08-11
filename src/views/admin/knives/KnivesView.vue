@@ -1,14 +1,16 @@
 <script setup lang="ts">
-import { reactive } from "vue"
+import {reactive, ref} from "vue"
 import { useRouter } from "vue-router"
 
 import PageTemplate from '../../../components/admin/common/PageTempalte.vue'
+import controlButton from "@/types/controlButton"
 
 const router = useRouter()
 
 const pageTitle: string = 'Ножи'
-const controlButtonsLayout = reactive({
-  addButton: {
+
+const controlButtonsLayout = reactive(<controlButton[]> [
+  {
     title: 'Добавить',
     type: 'info',
     plain: true,
@@ -17,7 +19,7 @@ const controlButtonsLayout = reactive({
     disabled: false,
     click: addButton
   },
-  editButton: {
+  {
     title: 'Редактировать',
     type: 'info',
     plain: true,
@@ -26,7 +28,7 @@ const controlButtonsLayout = reactive({
     disabled: false,
     // click: editButton
   },
-  copyButton: {
+  {
     title: 'Дублировать',
     type: 'info',
     plain: true,
@@ -35,7 +37,7 @@ const controlButtonsLayout = reactive({
     disabled: false,
     // click: copyButton
   },
-  deleteButton: {
+  {
     title: 'Удалить',
     type: 'danger',
     plain: true,
@@ -44,7 +46,7 @@ const controlButtonsLayout = reactive({
     disabled: false,
     // click: deleteButton
   }
-})
+])
 
 function addButton() {
   router.push({name: 'addKnives'})
