@@ -32,6 +32,7 @@ const controlButtonsLayout = reactive(<controlButton[]> [
   },
 ])
 
+
 function backButton() {
   router.go(-1)
 }
@@ -40,17 +41,17 @@ onMounted(async () => {
   loader.value = true
 
   switch(true) {
-    case route.name === 'addKnives':
-      pageTitle.value = 'Добавить нож'
+    case route.name === 'addUsers':
+      pageTitle.value = 'Добавить пользователя'
       break
-    // case route.name === 'catalogueEditTheater':
-    //   pageTitle.value = 'Редактировать театр:'
-    //   await getTheaterDataById()
-    //   break
-    // case route.name === 'catalogueCopyTheater':
-    //   pageTitle.value = 'Добавить театр:'
-    //   await getTheaterDataById()
-    //   break
+      // case route.name === 'catalogueEditTheater':
+      //   pageTitle.value = 'Редактировать театр:'
+      //   await getTheaterDataById()
+      //   break
+      // case route.name === 'catalogueCopyTheater':
+      //   pageTitle.value = 'Добавить театр:'
+      //   await getTheaterDataById()
+      //   break
   }
 
   loader.value = false
@@ -63,36 +64,29 @@ onMounted(async () => {
       :controlButtonsLayout="controlButtonsLayout"
   >
     <el-form
-      label-width="70px"
-      label-position="right"
-      v-loading="loader"
+        label-width="70px"
+        label-position="right"
+        v-loading="loader"
     >
       <el-card class="box-card">
-      </el-card>
-      <el-card class="box-card">
-        <el-form-item label="Название">
+        <el-form-item label="Имя">
           <el-input/>
         </el-form-item>
-        <el-form-item label="Описание">
-          <el-input
-              :rows="2"
-              type="textarea"
-          />
+        <el-form-item label="Фамилия">
+          <el-input/>
         </el-form-item>
-        <el-form-item label="Цена">
-          <el-input-number/>
+        <el-form-item label="Почта">
+          <el-input/>
+        </el-form-item>
+        <el-form-item label="Пароль">
+          <el-input/>
         </el-form-item>
       </el-card>
     </el-form>
+
   </PageTemplateForAddEdit>
 </template>
 
-<style>
-.box-card {
-  margin-bottom: 10px;
-}
+<style scoped>
 
-.box-card:last-child {
-  margin-bottom: 0;
-}
 </style>

@@ -1,21 +1,19 @@
 <script setup lang="ts">
-import {defineProps} from "vue"
+import {defineProps, PropType} from "vue"
+import controlButton from "@/types/controlButton";
 
-import ControlButton from '../common/ControlButton.vue'
+import ControlButton from './ControlButtons.vue'
 
-interface ControlButtonItem {
-  title: string;
-  type: string;
-  plain: boolean;
-  isIconNeeded: boolean;
-  iconName: string;
-  disabled: boolean;
-}
-
-const props = defineProps<{
-  pageTitle: string;
-  controlButtonsLayout: ControlButtonItem;
-}>()
+const props = defineProps({
+  pageTitle: {
+    type: String,
+    required: true
+  },
+  controlButtonsLayout: {
+    type: Array as PropType<controlButton[]>,
+    required: true
+  }
+})
 
 </script>
 
@@ -29,6 +27,7 @@ const props = defineProps<{
             :key="btn"
             :title="btn.title"
             :type='btn.type'
+            :plain="btn.plain"
 
             @click='btn.click'
         />
