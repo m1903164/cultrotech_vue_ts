@@ -11,5 +11,10 @@ export default [
         path: 'knives/add',
         name: 'addKnives',
         component: AddKnivesView
+    },
+    {
+        path: 'knives/edit/:id',
+        name: 'editKnives',
+        component: AddKnivesView
     }
 ]

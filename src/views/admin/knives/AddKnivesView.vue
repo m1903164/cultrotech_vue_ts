@@ -2,6 +2,7 @@
 import {onMounted, ref, reactive} from "vue"
 import { useRoute, useRouter } from 'vue-router'
 import {useRestStore } from "@/stores/rest";
+import { ElMessage, ElMessageBox } from 'element-plus'
 
 import PageTemplateForAddEdit from '../../../components/admin/common/PageTemplateForAddEdit.vue'
 import controlButton from "@/types/controlButton"
@@ -22,7 +23,7 @@ const controlButtonsLayout = reactive(<controlButton[]> [
     isIconNeeded: true,
     iconName: 'fa-plus',
     disabled: false,
-    click: addButton
+    click: saveButton
   },
   {
     title: 'Назад',
@@ -50,15 +51,46 @@ const KnifeCategory = [
   {label: 'Fix blade'}
 ]
 
+const getDataById = async () => {
+  try {
+    const res = await rest.axios.get(`/knife/${route.params.id}`)
+
+    Object.assign(formData, res.data)
+    console.log(formData)
+  }catch (e) {
+    console.log('AddKnivesView || getDataById || error =>,', e)
+  }
+}
+
 function backButton () {
   router.go(-1)
 }
 
-async function addButton () {
-  console.log(formData)
+async function saveButton () {
+
+  const method = route.name === 'addKnives' ? 'post' : 'put'
+  const url = route.name === 'addKnives' ? '/knife' : `/knife/${route.params.id}`
 
   try {
-    await rest.axios.post('/knife', formData)
+    await rest.axios({url: url, method, data: formData})
+
+    let message;
+    switch(true) {
+      case route.name === 'addKnives':
+        message = 'Нож добавлен'
+        break
+      case route.name === 'editKnives':
+        message = 'Нож изменен'
+        break
+    }
+
+    ElMessage({
+      type: 'success',
+      message,
+      duration: 2000
+    })
+
+    await router.push({name: 'knivesView'})
   }catch (e) {
     console.log('AddKnivesView || addButton || error =>,', e)
   }
@@ -71,14 +103,10 @@ onMounted(async () => {
     case route.name === 'addKnives':
       pageTitle.value = 'Добавить нож'
       break
-    // case route.name === 'catalogueEditTheater':
-    //   pageTitle.value = 'Редактировать театр:'
-    //   await getTheaterDataById()
-    //   break
-    // case route.name === 'catalogueCopyTheater':
-    //   pageTitle.value = 'Добавить театр:'
-    //   await getTheaterDataById()
-    //   break
+    case route.name === 'editKnives':
+      pageTitle.value = 'Редактировать нож:'
+      await getDataById()
+      break
   }
 
   loader.value = false

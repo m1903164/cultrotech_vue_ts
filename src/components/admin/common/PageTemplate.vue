@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import {defineProps, onMounted, reactive, ref} from "vue"
-import controlButton from "@/types/controlButton"
-
-import ControlButton from './ControlButtons.vue'
-
+import {defineEmits, defineProps, onMounted, reactive, ref} from "vue"
 import { useRestStore } from "@/stores/rest"
+
+import controlButton from "@/types/controlButton"
+import ControlButton from './ControlButtons.vue'
 
 const props = defineProps<{
   pageTitle: string;
@@ -12,11 +11,19 @@ const props = defineProps<{
   dataPathToServer: string
 }>()
 
+const emits = defineEmits([
+    'currentRowChange'
+])
+
 const rest = useRestStore()
 
 const dataFromServer = reactive<Record<string, any>[]>([])
 //Мы используем Record<string, any>[], чтобы указать, что dataFromServer будет хранить массив объектов,
 // где ключи объектов - это строки, а значения - любого типа.
+
+const rowSelected = (row) => {
+  emits('currentRowChange', row)
+}
 
 const getDataFromServer = async () => {
   try {
@@ -47,12 +54,20 @@ onMounted(async () => {
             :title="btn.title"
             :type='btn.type'
             :plain="btn.plain"
+            :disabled="props.disabled"
 
             @click='btn.click'
         />
       </div>
     </div>
-    <el-table :data="dataFromServer">
+    <el-table
+        :data="dataFromServer"
+        highlight-current-row
+        empty-text='Нет данных'
+        border
+
+        @current-change='rowSelected'
+    >
       <template v-for="(value, key) in dataFromServer[0] || {}">
         <el-table-column :label="key">
           <template #default="{ row }">
