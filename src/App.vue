@@ -1,19 +1,22 @@
 <script setup lang="ts">
-import axios from "axios";
-import {onMounted} from "vue";
-
-const fetchPosts =  async () => {
-  try {
-    const res = await axios.get('http://localhost:3000/knife');
-    console.log(res.data)
-  } catch (error) {
-    console.error('Error fetching posts:', error);
-  }
-}
-
-onMounted(async () => {
-  await fetchPosts()
-})
+// import {onMounted} from "vue"
+//
+// import {useRestStore} from '../src/stores/rest'
+//
+// const rest = useRestStore()
+//
+// const getKnivesFromServer = async () => {
+//   try {
+//     const res = await rest.axios.get('/knife')
+//     console.log(res.data)
+//   }catch (e) {
+//     console.error('Error fetching knives:', e)
+//   }
+// }
+//
+// onMounted(async () => {
+//   await getKnivesFromServer()
+// })
 
 </script>
 

@@ -2,12 +2,13 @@
 import {reactive, ref} from "vue"
 import { useRouter } from "vue-router"
 
-import PageTemplate from '../../../components/admin/common/PageTempalte.vue'
+import PageTemplate from '../../../components/admin/common/PageTemplate.vue'
 import controlButton from "@/types/controlButton"
 
 const router = useRouter()
 
-const pageTitle: string = 'Ножи'
+const pageTitle = ref<string>('Ножи')
+const dataPathToServer = ref<string>('/knife')
 
 const controlButtonsLayout = reactive(<controlButton[]> [
   {
@@ -48,7 +49,7 @@ const controlButtonsLayout = reactive(<controlButton[]> [
   }
 ])
 
-function addButton() {
+function addButton () {
   router.push({name: 'addKnives'})
 }
 
@@ -58,6 +59,7 @@ function addButton() {
   <PageTemplate
     :pageTitle="pageTitle"
     :controlButtonsLayout="controlButtonsLayout"
+    :dataPathToServer="dataPathToServer"
   >
     <div>Knives</div>
   </PageTemplate>

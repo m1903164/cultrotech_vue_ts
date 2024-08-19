@@ -2,7 +2,7 @@
 import { reactive } from "vue"
 import { useRouter } from "vue-router"
 
-import PageTemplate from '../../../components/admin/common/PageTempalte.vue'
+import PageTemplate from '../../../components/admin/common/PageTemplate.vue'
 import controlButton from "@/types/controlButton"
 
 const router = useRouter()
