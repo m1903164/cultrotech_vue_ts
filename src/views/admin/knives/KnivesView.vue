@@ -47,7 +47,7 @@ const controlButtonsLayout = reactive(<controlButton[]> [
     isIconNeeded: true,
     iconName: 'fa-trash-can',
     disabled: false,
-    // click: deleteButton
+    click: deleteButton
   }
 ])
 
@@ -77,6 +77,19 @@ function editButton () {
       id: currentRow.value._id,
     }
   })
+}
+function deleteButton() {
+  if(!Object.keys(currentRow.value).length) {
+    ElNotification({
+      customClass: 'notification',
+      title: 'Внимание',
+      message: 'Выберите нож для редактирования',
+      type: 'error',
+      duration: 2000
+    })
+    return
+  }
+  console.log(currentRow.value._id)
 }
 
 </script>

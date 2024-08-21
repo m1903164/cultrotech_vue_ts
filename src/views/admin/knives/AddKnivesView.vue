@@ -1,23 +1,24 @@
 <script setup lang="ts">
 import {onMounted, ref, reactive} from "vue"
 import { useRoute, useRouter } from 'vue-router'
-import {useRestStore } from "@/stores/rest";
-import { ElMessage, ElMessageBox } from 'element-plus'
+import {useRestStore } from "@/stores/rest"
+import { useKnifeStore} from "@/stores/knifeStore"
 
 import PageTemplateForAddEdit from '../../../components/admin/common/PageTemplateForAddEdit.vue'
 import controlButton from "@/types/controlButton"
-import Knife from "@/types/knife";
+import { Knife } from '@/stores/knifeStore'
 
 const route = useRoute()
 const router = useRouter()
 const rest = useRestStore()
+const knifeStore = useKnifeStore()
 
 const pageTitle = ref<string>('')
 const loader = ref<boolean>(false)
 
 const controlButtonsLayout = reactive(<controlButton[]> [
   {
-    title: 'Добавить',
+    title: 'Сохранить',
     type: 'success',
     plain: true,
     isIconNeeded: true,
@@ -67,43 +68,26 @@ function backButton () {
 }
 
 async function saveButton () {
-
-  const method = route.name === 'addKnives' ? 'post' : 'put'
-  const url = route.name === 'addKnives' ? '/knife' : `/knife/${route.params.id}`
-
-  try {
-    await rest.axios({url: url, method, data: formData})
-
-    let message;
-    switch(true) {
-      case route.name === 'addKnives':
-        message = 'Нож добавлен'
-        break
-      case route.name === 'editKnives':
-        message = 'Нож изменен'
-        break
-    }
-
-    ElMessage({
-      type: 'success',
-      message,
-      duration: 2000
-    })
-
-    await router.push({name: 'knivesView'})
-  }catch (e) {
-    console.log('AddKnivesView || addButton || error =>,', e)
+  switch (route.name) {
+    case 'addKnives':
+      await knifeStore.addKnife(formData)
+      break
+    case 'editKnives':
+      await knifeStore.editKnife(route.params.id, formData)
+      break
   }
+
+  await router.push({name: 'knivesView'})
 }
 
 onMounted(async () => {
   loader.value = true
 
-  switch(true) {
-    case route.name === 'addKnives':
+  switch(route.name) {
+    case 'addKnives':
       pageTitle.value = 'Добавить нож'
       break
-    case route.name === 'editKnives':
+    case 'editKnives':
       pageTitle.value = 'Редактировать нож:'
       await getDataById()
       break
