@@ -6,14 +6,14 @@ import { ElMessage, ElMessageBox } from 'element-plus'
 
 import PageTemplateForAddEdit from '../../../components/admin/common/PageTemplateForAddEdit.vue'
 import controlButton from "@/types/controlButton"
-import AddKnife from "@/types/knife";
+import Knife from "@/types/knife";
 
 const route = useRoute()
 const router = useRouter()
 const rest = useRestStore()
 
-const pageTitle = ref('')
-const loader = ref(false)
+const pageTitle = ref<string>('')
+const loader = ref<boolean>(false)
 
 const controlButtonsLayout = reactive(<controlButton[]> [
   {
@@ -36,7 +36,7 @@ const controlButtonsLayout = reactive(<controlButton[]> [
   },
 ])
 
-const formData = reactive(<AddKnife> {
+const formData = reactive(<Knife> {
   name: '',
   description: '',
   price: 0,
