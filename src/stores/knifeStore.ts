@@ -51,8 +51,25 @@ export const useKnifeStore = defineStore('knife', () => {
         }
     }
 
+    const deleteKnife = async (id: string) => {
+        try {
+            await rest.axios.delete(`/knife/${id}`)
+
+            message.value = 'Нож удален'
+
+            ElMessage({
+                type: 'success',
+                message,
+                duration: 2000
+            })
+        }catch (e) {
+            console.log('knifeStore || deleteKnife || error =>,', e)
+        }
+    }
+
     return {
         addKnife,
-        editKnife
+        editKnife,
+        deleteKnife
     }
 })

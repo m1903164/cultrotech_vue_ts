@@ -2,11 +2,13 @@
 import {onMounted, reactive, ref} from "vue"
 import { useRouter } from "vue-router"
 import { ElNotification, ElMessageBox, ElMessage } from 'element-plus'
+import { useKnifeStore} from "@/stores/knifeStore"
 
 import PageTemplate from '../../../components/admin/common/PageTemplate.vue'
 import controlButton from "@/types/controlButton"
 
 const router = useRouter()
+const knifeStore = useKnifeStore()
 
 const pageTitle = ref<string>('Ножи')
 const dataPathToServer = ref<string>('/knife')
@@ -78,7 +80,7 @@ function editButton () {
     }
   })
 }
-function deleteButton() {
+async function deleteButton() {
   if(!Object.keys(currentRow.value).length) {
     ElNotification({
       customClass: 'notification',
@@ -90,6 +92,9 @@ function deleteButton() {
     return
   }
   console.log(currentRow.value._id)
+  await knifeStore.deleteKnife(currentRow.value._id)
+
+  window.location.reload()
 }
 
 </script>
