@@ -1,14 +1,29 @@
 <script setup lang="ts">
+import {ref} from "vue"
 import { useRouter } from "vue-router"
+import {useUserStore} from "@/stores/user"
+
+interface FormData {
+  email: string;
+  password: string;
+}
 
 const router = useRouter()
+const userStore = useUserStore()
 
-function singInEvent() {
+const formData = ref<FormData>({
+  email: '',
+  password: '',
+});
+
+
+function loginEvent() {
+  userStore.loginEvent(formData.value.email, formData.value.password)
   router.push({name: 'HomeAdmin'})
 }
 
-function authEvent() {
-  console.log('authEvent')
+function signUpEvent() {
+  console.log('signUpEvent')
   router.push({name: 'auth'})
 }
 </script>
@@ -17,16 +32,16 @@ function authEvent() {
   <div class="page-wrapper">
     <el-card class="box-card">
       <el-form>
-        <el-form-item>
-          <el-input></el-input>
+        <el-form-item label="Email">
+          <el-input v-model="formData.email"/>
         </el-form-item>
-        <el-form-item>
-          <el-input></el-input>
+        <el-form-item label="Password">
+          <el-input v-model="formData.password"/>
         </el-form-item>
       </el-form>
       <div class="btn-wrapper">
-        <el-button class="login-btn" @click="singInEvent">Войти</el-button>
-        <el-button class="auth-btn" @click="authEvent">Зарегистрироваться</el-button>
+        <el-button class="login-btn" @click="loginEvent">Войти</el-button>
+        <el-button class="auth-btn" @click="signUpEvent">Зарегистрироваться</el-button>
       </div>
     </el-card>
   </div>
