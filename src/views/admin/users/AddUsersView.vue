@@ -1,12 +1,23 @@
 <script setup lang="ts">
 import {onMounted, ref, reactive} from "vue"
 import { useRoute, useRouter } from 'vue-router'
+import {useRestStore } from "@/stores/rest"
 
 import PageTemplateForAddEdit from '../../../components/admin/common/PageTemplateForAddEdit.vue'
 import controlButton from "@/types/controlButton"
+import {User} from "@/stores/user"
+
+// export interface User {
+//   id?: string
+//   name: string
+//   email: string
+//   password: string
+//   role: string
+// }
 
 const route = useRoute()
 const router = useRouter()
+const rest = useRestStore()
 
 const pageTitle = ref('')
 const loader = ref(false)
@@ -37,21 +48,26 @@ function backButton() {
   router.go(-1)
 }
 
+const getUserById = async (): Promise<User> => {
+  try {
+    const res = await rest.axios.get(`/auth/user/${route.params.id}`)
+    console.log(res.data)
+  }catch (e) {
+
+  }
+}
+
 onMounted(async () => {
   loader.value = true
 
   switch(true) {
-    case route.name === 'addUsers':
+    case route.name === 'addUser':
       pageTitle.value = 'Добавить пользователя'
       break
-      // case route.name === 'catalogueEditTheater':
-      //   pageTitle.value = 'Редактировать театр:'
-      //   await getTheaterDataById()
-      //   break
-      // case route.name === 'catalogueCopyTheater':
-      //   pageTitle.value = 'Добавить театр:'
-      //   await getTheaterDataById()
-      //   break
+    case route.name === 'editUser':
+      pageTitle.value = 'Редактировать пользователя:'
+      await getUserById()
+      break
   }
 
   loader.value = false

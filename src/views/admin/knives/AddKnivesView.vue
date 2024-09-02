@@ -52,7 +52,7 @@ const KnifeCategory = [
   {label: 'Fix blade'}
 ]
 
-const getDataById = async () => {
+const getDataById = async (): Promise<Knife> => {
   try {
     const res = await rest.axios.get(`/knife/${route.params.id}`)
 

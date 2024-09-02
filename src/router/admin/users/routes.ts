@@ -9,7 +9,12 @@ export default [
     },
     {
         path: 'users/add',
-        name: 'addUsers',
+        name: 'addUser',
+        component: AddUsersView,
+    },
+    {
+        path: 'users/edit/:id',
+        name: 'editUser',
         component: AddUsersView,
     }
 ]
