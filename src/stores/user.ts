@@ -2,9 +2,10 @@ import { defineStore } from 'pinia'
 import { useRestStore } from '@/stores/rest'
 import { useRouter } from "vue-router"
 import { ref, watch } from 'vue'
+import {ElMessage} from "element-plus";
 
 export interface User {
-  id: string
+  id?: string
   name: string
   email: string
   password: string
@@ -17,6 +18,8 @@ export const useUserStore = defineStore('user', () => {
 
   const user = ref<User | null>(null)
   const token = ref<string | null>(null)
+
+  const message = ref<string>('')
 
   const loginEvent = async (email: string, password: string): Promise<void> => {
     try {
@@ -42,12 +45,30 @@ export const useUserStore = defineStore('user', () => {
         }
       }
     } catch (e) {
-      console.log('userStore login error =>', e)
+      console.log('userStore loginEvent error =>', e)
+    }
+  }
+
+  const singUpEvent = async (user: Omit<User, 'id'>): Promise<User> => {
+    // console.log(user)
+    try {
+      await rest.axios.post('/auth/signup', user)
+
+      message.value = 'Пользователь добавлен'
+
+      ElMessage({
+        type: 'success',
+        message,
+        duration: 2000
+      })
+    }catch (e) {
+      console.log('userStore singUpEvent error =>', e)
     }
   }
 
   return {
     loginEvent,
+    singUpEvent,
     user,
     token,
   }

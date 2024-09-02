@@ -2,22 +2,16 @@
 import {onMounted, ref, reactive} from "vue"
 import { useRoute, useRouter } from 'vue-router'
 import {useRestStore } from "@/stores/rest"
+import { useUserStore } from "@/stores/user"
 
 import PageTemplateForAddEdit from '../../../components/admin/common/PageTemplateForAddEdit.vue'
 import controlButton from "@/types/controlButton"
 import {User} from "@/stores/user"
 
-// export interface User {
-//   id?: string
-//   name: string
-//   email: string
-//   password: string
-//   role: string
-// }
-
 const route = useRoute()
 const router = useRouter()
 const rest = useRestStore()
+const userStore = useUserStore()
 
 const pageTitle = ref<string>('')
 const loader = ref<boolean>(false)
@@ -51,8 +45,8 @@ const formData = ref(<User> {
 })
 
 const UserRoles = [
-    {label: 'admin'},
-    {label: 'client'}
+  {label: 'admin'},
+  {label: 'client'}
 ]
 
 function backButton() {
@@ -68,8 +62,10 @@ const getUserById = async (): Promise<User> => {
   }
 }
 
-function saveButton() {
-  console.log(formData.value)
+async function saveButton() {
+  await userStore.singUpEvent(formData.value)
+
+  await router.push({name: 'usersView'})
 }
 
 onMounted(async () => {
@@ -110,7 +106,14 @@ onMounted(async () => {
           <el-input v-model="formData.password"/>
         </el-form-item>
         <el-form-item label="Роль">
-          <el-select v-model="formData.role"/>
+          <el-select v-model="formData.role">
+            <el-option
+              v-for="role in UserRoles"
+              :key="role.label"
+              :value="role.label"
+              :alue="role.label"
+            />
+          </el-select>
         </el-form-item>
       </el-card>
     </el-form>

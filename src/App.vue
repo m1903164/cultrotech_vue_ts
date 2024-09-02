@@ -5,6 +5,7 @@ const userStore = useUserStore()
 
 const savedUser = localStorage.getItem('cultrotech-user')
 if (savedUser) {
+  console.log('savedUser =>', savedUser)
   userStore.user = JSON.parse(savedUser)
 }
 </script>

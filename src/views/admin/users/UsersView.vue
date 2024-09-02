@@ -46,7 +46,7 @@ const currentRowChange = (row) => {
 }
 
 function addButton() {
-  router.push({name: 'addUsers'})
+  router.push({name: 'addUser'})
 }
 
 function editButton() {
