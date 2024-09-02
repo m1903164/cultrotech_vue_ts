@@ -1,6 +1,7 @@
 import {defineStore} from "pinia"
 import {useRestStore } from "@/stores/rest"
 import {ref} from "vue"
+import { useRouter } from "vue-router"
 
 export interface User {
   id: string,
@@ -12,6 +13,7 @@ export interface User {
 
 export const useUserStore = defineStore('user', () => {
   const rest = useRestStore()
+  const router = useRouter()
 
   const user = ref<User | {}>({})
   const token = ref(localStorage.getItem('cultrotech.token') || null)
@@ -29,17 +31,19 @@ export const useUserStore = defineStore('user', () => {
         // rest.setToken(res.data.access_token)
         Object.assign(user.value, res.data.user)
         console.log(user.value)
+        switch (user.value.role) {
+          case 'client':
+            router.push({name: 'userProfile'})
+            break
+          case 'admin':
+            router.push({name: 'HomeAdmin'})
+            break
+        }
       }
     } catch (e) {
       console.log('userStore login error =>', e)
     }
   }
-
-  // const setToken = (key) => {
-  //   token.value = key
-  //   window.localStorage.setItem('profTicket_dilyaver.token', token.value)
-  //   rest.axios.defaults.headers.common['Authorization'] = `Bearer ${token.value}`
-  // }
 
   return {
     loginEvent

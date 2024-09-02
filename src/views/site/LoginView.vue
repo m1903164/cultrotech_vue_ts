@@ -19,7 +19,6 @@ const formData = ref<FormData>({
 
 function loginEvent() {
   userStore.loginEvent(formData.value.email, formData.value.password)
-  router.push({name: 'HomeAdmin'})
 }
 
 function signUpEvent() {

@@ -5,7 +5,7 @@ import {onMounted} from "vue";
 const userStore = useUserStore()
 
 onMounted(() => {
-  console.log(useUserStore.user)
+  console.log(userStore.user)
 })
 </script>
 
