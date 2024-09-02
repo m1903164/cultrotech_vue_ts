@@ -1,13 +1,13 @@
-import {defineStore} from "pinia"
-import {useRestStore } from "@/stores/rest"
-import {ref} from "vue"
+import { defineStore } from 'pinia'
+import { useRestStore } from '@/stores/rest'
 import { useRouter } from "vue-router"
+import { ref, watch } from 'vue'
 
 export interface User {
-  id: string,
-  name: string,
-  email: string,
-  password: string,
+  id: string
+  name: string
+  email: string
+  password: string
   role: string
 }
 
@@ -15,8 +15,8 @@ export const useUserStore = defineStore('user', () => {
   const rest = useRestStore()
   const router = useRouter()
 
-  const user = ref<User | {}>({})
-  const token = ref(localStorage.getItem('cultrotech.token') || null)
+  const user = ref<User | null>(null)
+  const token = ref<string | null>(null)
 
   const loginEvent = async (email: string, password: string): Promise<void> => {
     try {
@@ -24,20 +24,21 @@ export const useUserStore = defineStore('user', () => {
         email,
         password,
       })
-      console.log(res.data)
 
       if (res.status === 201) {
-        console.log(res.data.user)
-        // rest.setToken(res.data.access_token)
-        Object.assign(user.value, res.data.user)
-        console.log(user.value)
+        user.value = res.data.user
+        token.value = res.data.token
+
+        localStorage.setItem("cultrotech-user",JSON.stringify(user.value))
+        localStorage.setItem("cultrotech-user-token",JSON.stringify(token.value))
+
         switch (user.value.role) {
           case 'client':
-            router.push({name: 'userProfile'})
-            break
+            await router.push({name: 'userProfile'})
+                break
           case 'admin':
-            router.push({name: 'HomeAdmin'})
-            break
+            await  router.push({name: 'HomeAdmin'})
+                break
         }
       }
     } catch (e) {
@@ -46,6 +47,8 @@ export const useUserStore = defineStore('user', () => {
   }
 
   return {
-    loginEvent
+    loginEvent,
+    user,
+    token,
   }
 })

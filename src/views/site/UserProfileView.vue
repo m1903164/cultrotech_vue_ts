@@ -10,5 +10,5 @@ onMounted(() => {
 </script>
 
 <template>
-  <h1>Пользователь</h1>
+  <h1>{{userStore.user.name}}</h1>
 </template>

@@ -17,8 +17,8 @@ const formData = ref<FormData>({
 });
 
 
-function loginEvent() {
-  userStore.loginEvent(formData.value.email, formData.value.password)
+async function loginEvent() {
+  await userStore.loginEvent(formData.value.email, formData.value.password)
 }
 
 function signUpEvent() {

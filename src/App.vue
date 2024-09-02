@@ -1,23 +1,12 @@
 <script setup lang="ts">
-// import {onMounted} from "vue"
-//
-// import {useRestStore} from '../src/stores/rest'
-//
-// const rest = useRestStore()
-//
-// const getKnivesFromServer = async () => {
-//   try {
-//     const res = await rest.axios.get('/knife')
-//     console.log(res.data)
-//   }catch (e) {
-//     console.error('Error fetching knives:', e)
-//   }
-// }
-//
-// onMounted(async () => {
-//   await getKnivesFromServer()
-// })
+import { useUserStore } from "@/stores/user"
 
+const userStore = useUserStore()
+
+const savedUser = localStorage.getItem('cultrotech-user')
+if (savedUser) {
+  userStore.user = JSON.parse(savedUser)
+}
 </script>
 
 <template>
