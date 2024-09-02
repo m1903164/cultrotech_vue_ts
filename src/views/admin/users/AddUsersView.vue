@@ -19,18 +19,18 @@ const route = useRoute()
 const router = useRouter()
 const rest = useRestStore()
 
-const pageTitle = ref('')
-const loader = ref(false)
+const pageTitle = ref<string>('')
+const loader = ref<boolean>(false)
 
 const controlButtonsLayout = reactive(<controlButton[]> [
   {
-    title: 'Добавить',
+    title: 'Сохранить',
     type: 'success',
     plain: true,
     isIconNeeded: true,
     iconName: 'fa-plus',
     disabled: false,
-    // click: addButton
+    click: saveButton
   },
   {
     title: 'Назад',
@@ -43,6 +43,17 @@ const controlButtonsLayout = reactive(<controlButton[]> [
   },
 ])
 
+const formData = ref(<User> {
+  name: '',
+  email: '',
+  password: '',
+  role: ''
+})
+
+const UserRoles = [
+    {label: 'admin'},
+    {label: 'client'}
+]
 
 function backButton() {
   router.go(-1)
@@ -55,6 +66,10 @@ const getUserById = async (): Promise<User> => {
   }catch (e) {
 
   }
+}
+
+function saveButton() {
+  console.log(formData.value)
 }
 
 onMounted(async () => {
@@ -86,16 +101,16 @@ onMounted(async () => {
     >
       <el-card class="box-card">
         <el-form-item label="Имя">
-          <el-input/>
-        </el-form-item>
-        <el-form-item label="Фамилия">
-          <el-input/>
+          <el-input v-model="formData.name"/>
         </el-form-item>
         <el-form-item label="Почта">
-          <el-input/>
+          <el-input v-model="formData.email"/>
         </el-form-item>
         <el-form-item label="Пароль">
-          <el-input/>
+          <el-input v-model="formData.password"/>
+        </el-form-item>
+        <el-form-item label="Роль">
+          <el-select v-model="formData.role"/>
         </el-form-item>
       </el-card>
     </el-form>
