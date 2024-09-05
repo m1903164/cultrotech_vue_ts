@@ -66,9 +66,26 @@ export const useUserStore = defineStore('user', () => {
     }
   }
 
+  const editUserEvent = async (id: string, user: User): Promise<User> => {
+    try {
+      await rest.axios.put(`/auth/user/${id}`, user)
+
+      message.value = 'Пользователь изменен'
+
+      ElMessage({
+        type: 'success',
+        message,
+        duration: 2000
+      })
+    }catch (e) {
+      console.log('userStore editUserEvent error =>', e)
+    }
+  }
+
   return {
     loginEvent,
     singUpEvent,
+    editUserEvent,
     user,
     token,
   }

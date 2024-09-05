@@ -37,7 +37,8 @@ const controlButtonsLayout = reactive(<controlButton[]> [
   },
 ])
 
-const formData = ref(<User> {
+const formData = reactive(<User> {
+  id: '',
   name: '',
   email: '',
   password: '',
@@ -49,22 +50,28 @@ const UserRoles = [
   {label: 'client'}
 ]
 
+const getUserById = async (): Promise<User> => {
+  try {
+    const res = await rest.axios.get(`/auth/user/${route.params.id}`)
+    Object.assign(formData, res.data)
+  }catch (e) {
+    console.log('addUsersView getUserById e =>', e)
+  }
+}
+
 function backButton() {
   router.go(-1)
 }
 
-const getUserById = async (): Promise<User> => {
-  try {
-    const res = await rest.axios.get(`/auth/user/${route.params.id}`)
-    console.log(res.data)
-  }catch (e) {
-
-  }
-}
-
 async function saveButton() {
-  await userStore.singUpEvent(formData.value)
-
+  switch (route.name) {
+    case 'addUser':
+      await userStore.singUpEvent(formData)
+      break
+    case 'editUser':
+      await userStore.editUserEvent(route.params.id, formData)
+      break
+  }
   await router.push({name: 'usersView'})
 }
 
