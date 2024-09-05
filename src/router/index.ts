@@ -3,6 +3,7 @@ import HomeView from '../views/site/HomeView.vue'
 import AuthView from '../views/site/AuthView.vue'
 import HomeAdminView from '../views/admin/HomeAdminView.vue'
 import UserProfileView from '../views/site/UserProfileView.vue'
+import CatalogueView from '../views/site/CatalogeView.vue'
 
 import adminRoutes from './admin/routes'
 
@@ -31,6 +32,11 @@ const router = createRouter({
       path: '/profile',
       name: 'userProfile',
       component: UserProfileView
+    },
+    {
+      path: '/catalogue',
+      name: 'catalogue',
+      component: CatalogueView
     },
     {
       path: '/admin',
