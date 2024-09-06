@@ -1,15 +1,28 @@
 <script setup lang="ts">
+import { reactive } from "vue"
 import { useRouter } from "vue-router"
+import {useUserStore} from "@/stores/user"
 
-const router = useRouter()
-
-function singInEvent() {
-  router.push({name: 'HomeAdmin'})
+interface FormData {
+  name: string;
+  email: string;
+  password: string;
+  role: string;
 }
 
-function authEvent() {
-  console.log('authEvent')
-  router.push({name: 'auth'})
+const router = useRouter()
+const userStore = useUserStore()
+
+const formData = reactive<FormData>({
+  name: '',
+  email: '',
+  password: '',
+  role: 'client'
+})
+
+const authEvent = async () => {
+  await userStore.singUpEvent(formData)
+  await router.push({name: 'userProfile'})
 }
 </script>
 
@@ -17,14 +30,14 @@ function authEvent() {
   <div class="page-wrapper">
     <el-card class="box-card">
       <el-form>
-        <el-form-item label="name">
-          <el-input></el-input>
+        <el-form-item label="Имя">
+          <el-input v-model="formData.name"/>
         </el-form-item>
-        <el-form-item label="emai">
-          <el-input></el-input>
+        <el-form-item label="Почта">
+          <el-input v-model="formData.email"/>
         </el-form-item>
-        <el-form-item label="password">
-          <el-input></el-input>
+        <el-form-item label="Паоль">
+          <el-input v-model="formData.password"/>
         </el-form-item>
       </el-form>
       <div class="btn-wrapper">
@@ -62,6 +75,8 @@ function authEvent() {
 }
 
 .auth-btn {
-  border: none;
+  width: 150px;
+  background-color: #C9A378;
+  color: white;
 }
 </style>

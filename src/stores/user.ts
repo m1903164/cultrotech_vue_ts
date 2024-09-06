@@ -50,7 +50,7 @@ export const useUserStore = defineStore('user', () => {
   }
 
   const singUpEvent = async (user: Omit<User, 'id'>): Promise<User> => {
-    // console.log(user)
+    console.log(user)
     try {
       await rest.axios.post('/auth/signup', user)
 
