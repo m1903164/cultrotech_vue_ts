@@ -2,15 +2,16 @@ import { defineStore } from 'pinia'
 import { useRestStore } from '@/stores/rest'
 import { useRouter } from "vue-router"
 import { ref, watch } from 'vue'
-import {ElMessage} from "element-plus";
+import {ElMessage} from "element-plus"
+import type {User} from "@/types/user"
 
-export interface User {
-  id?: string
-  name: string
-  email: string
-  password: string
-  role: string
-}
+// export interface User {
+//   id?: string
+//   name: string
+//   email: string
+//   password: string
+//   role: string
+// }
 
 export const useUserStore = defineStore('user', () => {
   const rest = useRestStore()
